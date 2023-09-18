@@ -1,0 +1,42 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'com.epam.fit'
+version = '1.0-SNAPSHOT'
+
+mainClassName = 'com.epam.fit.idbscart.MainApplication'
+
+repositories {
+    mavenCentral()
+}
+
+ext{
+    set('lombokVersion','1.18.28')
+    set('log4j2Version','2.20.0')
+    set('junitVersion','5.9.1')
+    set('vavrVersion','0.10.4')
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.28'
+    annotationProcessor 'org.projectlombok:lombok:1.18.28'
+    implementation "org.apache.logging.log4j:log4j-api:${log4j2Version}"
+    implementation "org.apache.logging.log4j:log4j-core:${log4j2Version}"
+    implementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2Version}"
+    implementation "io.vavr:vavr:${vavrVersion}"
+    testImplementation platform("org.junit:junit-bom:${junitVersion}")
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
